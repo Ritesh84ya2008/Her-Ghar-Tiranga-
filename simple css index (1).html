@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Har Ghar Tiranga</title>
+  <style>
+    /* General body styles */
+    body {
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+      margin: 0;
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background-color: #f97316; /* orange-500 */
+      color: white;
+      position: sticky;
+      top: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 50;
+    }
+
+    nav {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 24px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #facc15; /* yellow-400 */
+    }
+
+    /* Heading below header */
+    h2.welcome {
+      background-color: #fecaca; /* red-200 */
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 8px 16px;
+      max-width: 960px;
+      margin: 12px auto 0;
+      display: block;
+      color: #333;
+    }
+
+    h2.welcome span:nth-child(1) {
+      color: #b91c1c; /* red-600 */
+    }
+
+    h2.welcome span:nth-child(2) {
+      color: white;
+    
+      padding: 0 4px;
+      border-radius: 2px;
+    }
+
+    h2.welcome span:nth-child(3) {
+      color: #15803d; /* green-700 */
+    }
+
+    /* Main container */
+    main, section {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* Home section */
+    #home .flag-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .flag-container .flag-pole {
+      width: 8px;
+      height: 160px;
+      background-color: black;
+    }
+
+    .flag-container img.flag {
+      width: 256px;
+      height: 160px;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Personal image */
+    #home img.personal {
+      width: 256px;
+      height: 160px;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-top: 16px;
+      display: block;
+    }
+
+    /* Shayari cards grid */
+    #home .shayari-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 640px;
+      margin: 24px auto 0;
+    }
+
+    /* Responsive two columns for wider screens */
+    @media (min-width: 768px) {
+      #home .shayari-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Individual shayari card */
+    .shayari-card {
+      background-color: white;
+      border: 1.5px solid #fb923c; /* orange-400 */
+      border-radius: 6px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(251,146,60,0.3);
+    }
+
+    .shayari-card p.title {
+      color: #ea580c; /* orange-600 */
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .shayari-card p.text {
+      color: #374151; /* gray-700 */
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* History section */
+    #home .history {
+      margin-top: 32px;
+      max-width: 960px;
+    }
+
+    #home .history h2 {
+      color: #f97316; /* orange-500 */
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    #home .history p {
+      color: #374151; /* gray-700 */
+      line-height: 1.6;
+      margin-top: 0;
+    }
+
+    /* Quiz section */
+    #quiz {
+      margin-top: 32px;
+      padding: 16px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 640px;
+    }
+
+    #quiz h2 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    #question {
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    #options button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      background-color: #e5e7eb; /* gray-200 */
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    #options button:hover {
+      background-color: #d1d5db; /* gray-300 */
+    }
+
+    #options button.correct {
+      background-color: #4ade80 !important; /* green-400 */
+      color: #065f46;
+    }
+
+    #options button.incorrect {
+      background-color: #f87171 !important; /* red-400 */
+      color: #7f1d1d;
+    }
+
+    #nextBtn {
+      margin-top: 16px;
+      padding: 10px 16px;
+      background-color: #3b82f6; /* blue-500 */
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      display: none;
+    }
+
+    #result {
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    /* Vote Section */
+    #vote-section {
+      margin-top: 48px;
+      background-color: #fef3c7; /* yellow-100 */
+      border: 1.5px solid #fde68a; /* yellow-400 */
+      padding: 24px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #vote-section p {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f97316; /* orange-500 */
+    }
+
+    /* About & Contact sections */
+    section.hidden {
+      display: none;
+    }
+
+    #about, #contact {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    #about h2, #contact h2 {
+      color: #f97316;
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    #about p, #contact p {
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= HEADER ======= -->
+  <header>
+    <nav>
+      <h1>🇮🇳 हर घर तिरंगा</h1>
+      <ul>
+        <li><a href="#home" onclick="showSection('home')">Home</a></li>
+        <li><a href="#about" onclick="showSection('about')">About</a></li>
+        <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h2 class="welcome">
+    <span>Welcome to District </span>
+    <span style="color:#fef3c7;padding:0 4px;border-radius:2px;"> Ayodhya on the auspicious </span>
+    <span style="color:#15803d"> occasion of 15th August</span>
+  </h2>
+
+  <main>
+    <!-- HOME SECTION -->
+    <section id="home">
+
+      <!-- Tiranga Image with Black Danda -->
+      <div class="flag-container">
+        <div class="flag-pole"></div>
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag" class="flag" />
+      </div>
+
+      <!-- Personal Image -->
+      <img class="personal" src="https://i.postimg.cc/9Qv0c8Ng/auto-Bg-12-08-2025-09-33-36.jpg" alt="Personal Image" />
+
+      <!-- Shayari Cards -->
+      <div class="shayari-grid">
+        <div class="shayari-card">
+          <p class="title">शायरी 1</p>
+          <p class="text">वतन की मिट्टी में खुशबू है प्यारी,<br>हमसे जुड़ी है ये ज़मीं हमारी।<br>हर दिल में बसता है भारत का नाम,<br>सिर्फ प्यार से भरा है ये फसाना।</p>
+        </div>
+        <div class="shayari-card">
+          <p class="title">शायरी 2</p>
+          <p class="text">तिरंगा लहराए हर आंगन में,<br>आजादी की खुशबू हर घर में।<br>दिल से नारे लगाएं सभी,<br>जय हिंद का सुर गूंजे गली-गली।</p>
+        </div>
+        <div class="shayari-card">
+          <p class="title">शायरी 3</p>
+          <p class="text">भारत माँ की जयकार है प्यारी,<br>हम सब की है ये सच्ची तैयारी।<br>15 अगस्त का ये पर्व महान,<br>हमारा है ये अटल मान।</p>
+        </div>
+        <div class="shayari-card">
+          <p class="title">शायरी 4</p>
+          <p class="text">आज़ादी की मशाल जलाए रखना,<br>हर पल इस तिरंगे को सजाए रखना।<br>हर घर तिरंगा हमारा संदेश,<br>एकता और प्रेम का ये है वेश।</p>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="history">
+        <h2>भारत का इतिहास</h2>
+        <p>
+          भारत की आज़ादी का संग्राम कई दशकों तक चला, जिसमें लाखों देशवासियों ने बलिदान दिया। 15 अगस्त 1947 को भारत ने ब्रिटिश शासन से आज़ादी प्राप्त की। महात्मा गांधी, भगत सिंह, सुभाष चंद्र बोस जैसे अनेक महान नेताओं ने इसमें महत्वपूर्ण भूमिका निभाई।
+        </p>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="quiz">
+        <h2>इतिहास क्विज़</h2>
+        <div id="question"></div>
+        <div id="options"></div>
+        <button id="nextBtn">अगला प्रश्न</button>
+        <div id="result"></div>
+      </div>
+
+      <!-- Vote Section -->
+      <div id="vote-section">
+        <p>🇮🇳 हर घर तिरंगे हर घर तिरंगा अभियान बस 🇮🇳</p>
+      </div>
+
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="hidden">
+      <h2>About Me</h2>
+      <p>
+        My name is Ritesh Kumar. I study in Class 12 (B1) at DR B P P S Sarvodaya IC, Ramganj, Milkipur, Ayodhya, Uttar Pradesh.
+        My father's name is Shri Amar Nath and my mother's name is Smt. Manju.
+        I started my coding journey by learning HTML, CSS, and JavaScript. I love creating websites, building games, and experimenting with web design.
+      </p>
+      <p><strong>Eligibility:–</strong> I have passed high school with 85.66% marks.</p>
+      <p>This project "Har Ghar Tiranga" was created to honor the spirit of India's Independence.</p>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="hidden" style="background-color:#f3f4f6; padding:16px; border-radius:6px;">
+      <h2>संपर्क करें</h2>
+      <p><b>फ़ोन:</b> +91-9450091853</p>
+      <p><b>ईमेल:</b> riteshkumar56357@gmail.com</p>
+      <p><b>पता:</b> Pure Beni Datt, Gokula, Milkipur, Ayodhya, Uttar Pradesh</p>
+    </section>
+  </main>
+
+  <script>
+    // Navigation function
+    function showSection(sectionId) {
+      const sections = ['home', 'about', 'contact'];
+      sections.forEach(id => {
+        document.getElementById(id).classList.toggle('hidden', id !== sectionId);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Show home on page load
+    showSection('home');
+
+    // Quiz data
+    const quizData = [
+      { q: "भारत को आज़ादी कब मिली?", options: ["1945", "1947", "1950", "1962"], answer: 1 },
+      { q: "महात्मा गांधी का जन्म कब हुआ?", options: ["1869", "1872", "1885", "1890"], answer: 0 },
+      { q: "झांसी की रानी का नाम क्या था?", options: ["लक्ष्मीबाई", "अहिल्याबाई", "पद्मावती", "दुर्गावती"], answer: 0 },
+      { q: "सुभाष चंद्र बोस का नारा क्या था?", options: ["जय हिंद", "वंदे मातरम", "इंकलाब जिंदाबाद", "सरफरोशी की तमन्ना"], answer: 0 },
+      { q: "भारतीय राष्ट्रीय कांग्रेस की स्थापना कब हुई?", options: ["1885", "1905", "1920", "1930"], answer: 0 },
+      { q: "जलियांवाला बाग हत्याकांड कब हुआ?", options: ["1915", "1919", "1925", "1930"], answer: 1 },
+      { q: "काकोरी कांड कब हुआ?", options: ["1925", "1930", "1935", "1942"], answer: 0 },
+      { q: "भगत सिंह को कब फांसी दी गई?", options: ["1929", "1931", "1935", "1940"], answer: 1 },
+      { q: "भारत का पहला प्रधानमंत्री कौन था?", options: ["पटेल", "गांधी", "नेहरू", "अंबेडकर"], answer: 2 },
+      { q: "चंद्रशेखर आज़ाद का जन्मस्थान कहाँ था?", options: ["अलीगढ़", "भाबरा", "इलाहाबाद", "झांसी"], answer: 1 }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("nextBtn");
+    const resultEl = document.getElementById("result");
+
+    function loadQuestion() {
+      answered = false;
+      resultEl.textContent = "";
+      resultEl.className = "";
+      const qData = quizData[currentQ];
+      questionEl.textContent = qData.q;
+      optionsEl.innerHTML = "";
+      nextBtn.style.display = "none";
+
+      qData.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => selectAnswer(i, btn);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(i, btn) {
+      if (answered) return;
+      answered = true;
+
+      const correctIndex = quizData[currentQ].answer;
+      const buttons = optionsEl.querySelectorAll("button");
+
+      if (i === correctIndex) {
+        btn.classList.add("correct");
+        resultEl.textContent = "✅ सही जवाब!";
+        score++;
+      } else {
+        btn.classList.add("incorrect");
+        buttons[correctIndex].classList.add("correct");
+        resultEl.textContent = "❌ गलत जवाब!";
+      }
+
+      nextBtn.style.display = "inline-block";
+    }
+
+    nextBtn.onclick = () => {
+      currentQ++;
+      if (currentQ < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    };
+
+    function showResult() {
+      questionEl.textContent = "";
+      optionsEl.innerHTML = "";
+      nextBtn.style.display = "none";
+      resultEl.textContent = `🎯 आपका स्कोर: ${score} / ${quizData.length}`;
+      resultEl.style.color = "#2563eb"; // blue-600
+      resultEl.style.fontWeight = "bold";
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
+
